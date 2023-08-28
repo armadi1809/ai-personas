@@ -10,7 +10,7 @@ interface CompanionIdPageProps {
 
 const CompanionIdPage: FC<CompanionIdPageProps> = async ({ params }) => {
   const companion = await prismadb.companion.findUnique({
-    where: { id: params.companionId },
+    where: { id: params.companionId || "" },
   });
 
   const categories = await prismadb.category.findMany();
