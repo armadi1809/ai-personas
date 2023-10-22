@@ -13,8 +13,13 @@ export async function POST(
   request: Request,
   { params }: { params: { chatId: string } }
 ) {
-  const user = await currentUser();
-  const messages = await db.message.findMany({
-    where: { userId: user?.id, companionId: params.chatId },
+  const { messages } = await request.json();
+
+  const response = await openai.chat.completions.create({
+    model: "gpt-3.5-turbo",
+    stream: true,
+    messages: messages,
   });
+  const stream = OpenAIStream(response);
+  return new StreamingTextResponse(stream);
 }

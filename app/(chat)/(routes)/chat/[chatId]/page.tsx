@@ -2,9 +2,7 @@ import prismadb from "@/lib/prismadb";
 import { auth, redirectToSignIn } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
 import { FC } from "react";
-import ChatHeader from "../components/chat-header";
-import ChatMessages from "../components/chat-messages";
-import ChatInput from "../components/chat-input";
+import ChatClient from "../components/chat-client";
 
 interface ChatIdPageProps {
   params: {
@@ -36,13 +34,7 @@ const ChatIdPage: FC<ChatIdPageProps> = async ({ params }) => {
     return redirect("/");
   }
 
-  return (
-    <div className="p-4 h-full flex flex-col gap-8">
-      <ChatHeader companion={companion} />
-      <ChatMessages />
-      <ChatInput />
-    </div>
-  );
+  return <ChatClient companion={companion} />;
 };
 
 export default ChatIdPage;
