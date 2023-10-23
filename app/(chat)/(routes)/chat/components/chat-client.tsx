@@ -7,6 +7,7 @@ import ChatHeader from "./chat-header";
 import ChatInput from "./chat-input";
 import ChatMessages from "./chat-messages";
 import { Message as OpenAiMessage } from "ai/react";
+import { useUser } from "@clerk/nextjs";
 
 interface ChatClientProps {
   companion: Companion & {
@@ -16,6 +17,7 @@ interface ChatClientProps {
 }
 
 export default function ChatClient({ companion }: ChatClientProps) {
+  const { user } = useUser();
   const initialMessages: (Message | OpenAiMessage)[] = [
     {
       id: companion.id,
@@ -40,7 +42,11 @@ export default function ChatClient({ companion }: ChatClientProps) {
   return (
     <div className="p-4 h-full flex flex-col gap-8">
       <ChatHeader companion={companion} />
-      <ChatMessages messages={messages} />
+      <ChatMessages
+        messages={messages}
+        botAvatarUrl={companion.src}
+        userAvatarrUrl={user?.imageUrl || ""}
+      />
       <ChatInput
         handleSubmit={handleSubmit}
         inputValue={input}
