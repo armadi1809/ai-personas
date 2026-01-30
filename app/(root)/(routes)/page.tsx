@@ -5,18 +5,20 @@ import Categories from "@/components/categories";
 import Companions from "@/components/companions";
 
 interface RootPageProps {
-  searchParams: {
+  searchParams: Promise<{
     categoryId: string;
     name: string;
-  };
+  }>;
 }
 
 const RootPage: FC<RootPageProps> = async ({ searchParams }) => {
+  const { categoryId, name } = await searchParams;
+
   const data = await prismadb.companion.findMany({
     where: {
-      categoryId: searchParams.categoryId,
+      categoryId: categoryId,
       name: {
-        search: searchParams.name,
+        search: name,
       },
     },
     orderBy: {
