@@ -1,24 +1,24 @@
 import prismadb from "@/lib/prismadb";
-import { auth, redirectToSignIn } from "@clerk/nextjs";
+import { auth } from "@clerk/nextjs/server";
+import { RedirectToSignIn } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
-import { FC } from "react";
 import ChatClient from "../components/chat-client";
 
 interface ChatIdPageProps {
-  params: {
-    chatId: string;
-  };
+  params: Promise<{ chatId: string }>;
 }
 
-const ChatIdPage: FC<ChatIdPageProps> = async ({ params }) => {
-  const { userId } = auth();
+export default async function ChatIdPage({ params }: ChatIdPageProps) {
+  const { userId } = await auth();
   if (!userId) {
-    return redirectToSignIn();
+    return <RedirectToSignIn />;
   }
+
+  const { chatId } = await params;
 
   const companion = await prismadb.companion.findUnique({
     where: {
-      id: params.chatId,
+      id: chatId,
     },
     include: {
       messages: {
@@ -30,11 +30,10 @@ const ChatIdPage: FC<ChatIdPageProps> = async ({ params }) => {
       },
     },
   });
+
   if (!companion) {
     return redirect("/");
   }
 
   return <ChatClient companion={companion} />;
-};
-
-export default ChatIdPage;
+}

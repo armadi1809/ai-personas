@@ -1,25 +1,34 @@
-import OpenAI from "openai";
-import { OpenAIStream, StreamingTextResponse } from "ai";
-import db from "@/lib/prismadb";
-import { currentUser } from "@clerk/nextjs";
-
-const openai = new OpenAI({
-  apiKey: process.env.OPEN_AI_SECRET_KEY,
-});
+import { streamText } from "ai";
+import { openai } from "@ai-sdk/openai";
 
 export const runtime = "edge";
 
+function convertMessages(messages: any[]) {
+  return messages.map((m) => ({
+    role: m.role as "user" | "assistant" | "system",
+    content:
+      m.content ??
+      m.parts
+        ?.filter((p: any) => p.type === "text")
+        .map((p: any) => p.text)
+        .join("") ??
+      "",
+  }));
+}
+
 export async function POST(
   request: Request,
-  { params }: { params: { chatId: string } }
+  { params }: { params: Promise<{ chatId: string }> }
 ) {
   const { messages } = await request.json();
 
-  const response = await openai.chat.completions.create({
-    model: "gpt-3.5-turbo",
-    stream: true,
-    messages: messages,
+  const converted = convertMessages(messages);
+  console.log("Converted messages:", converted);
+
+  const result = streamText({
+    model: openai("gpt-3.5-turbo"),
+    messages: converted,
   });
-  const stream = OpenAIStream(response);
-  return new StreamingTextResponse(stream);
+
+  return result.toUIMessageStreamResponse();
 }

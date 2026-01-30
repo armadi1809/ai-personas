@@ -9,6 +9,8 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@ai-sdk/openai": "^3.0.23",
+    "@ai-sdk/react": "^3.0.64",
     "@clerk/nextjs": "^6.37.1",
     "@hookform/resolvers": "^5.2.2",
     "@prisma/client": "^5.22.0",

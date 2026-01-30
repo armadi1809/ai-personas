@@ -1,11 +1,19 @@
-import { Message } from "ai";
-import React from "react";
+import { UIMessage } from "@ai-sdk/react";
 import ChatMessage from "./chat-message";
 
 interface ChatMessagesProps {
-  messages: Message[];
+  messages: UIMessage[];
   userAvatarrUrl: string;
   botAvatarUrl: string;
+}
+
+function getMessageText(message: UIMessage): string {
+  return (
+    message.parts
+      ?.filter((p) => p.type === "text")
+      .map((p) => p.text)
+      .join("") ?? ""
+  );
 }
 
 export default function ChatMessages({
@@ -21,10 +29,10 @@ export default function ChatMessages({
             <ChatMessage
               key={m.id}
               role={m.role === "assistant" ? m.role : "user"}
-              message={m.content}
+              message={getMessageText(m)}
               avatarSrc={m.role === "assistant" ? botAvatarUrl : userAvatarrUrl}
             />
-          )
+          ),
       )}
     </div>
   );
