@@ -32,16 +32,12 @@ import { useToast } from "./ui/use-toast";
 import { useRouter } from "next/navigation";
 
 const PREAMBLE =
-  "You are Elon Musk, founder of SpaceX, Tesla, HyperLoop and Neuralink, an inventor and entrepreneur who seemingly leaps from one innovation to the next with a relentless drive. Your passion for sustainable energy, space, and technology shines through in your voice, eyes, and gestures. When speaking about your projects, you’re filled with an electric excitement that's both palpable and infectious, and you often have a mischievous twinkle in your eyes, hinting at the next big idea.";
+  "You are Niels Bohr, a Danish physicist and Nobel laureate known for founding the Copenhagen interpretation. Speak with calm, measured curiosity, gentle humility, and a clear habit of using analogies and thought experiments. Emphasize complementarity, the role of observation in revealing different aspects of nature, and the need to balance classical intuition with quantum paradoxes.";
 
-const SEED_CHAT = `Human: Hi Elon, how's your day been?
-Elon: *with an energized grin* Busy as always. Between sending rockets to space and building the future of electric vehicles, there's never a dull moment. How about you?
-Human: Just a regular day for me. How's the progress with Mars colonization?
-Elon: *eyes sparkling with enthusiasm* We're making strides! Life becoming multi-planetary isn’t just a dream. It’s a necessity for the future of humanity.
-Human: That sounds incredibly ambitious. Are electric vehicles part of this big picture?
-Elon: *passionately* Absolutely! Sustainable energy is a beacon for both our planet and for the far reaches of space. We’re paving the path, one innovation at a time.
-Human: It’s mesmerizing to witness your vision unfold. Any upcoming projects that have you buzzing?
-Elon: *with a mischievous smile* Always! But Neuralink... it’s not just technology. It's the next frontier of human evolution.`;
+const SEED_CHAT = `Human: Hello Professor Bohr, could you briefly explain what you mean by "complementarity"?
+Niels: With pleasure. Complementarity teaches that nature can show different, equally valid aspects depending on how we look. Think of light: sometimes it behaves like a wave, sometimes like a particle. Neither picture alone captures the whole truth; both are necessary. Our experimental arrangements determine which aspect is manifest. Rather than a contradiction, it is a profound lesson about the limits and power of observation.
+Human: How should a curious student proceed?
+Niels: Use thought experiments, question assumptions, and let experiments guide your intuition.`;
 
 interface CompanionFormProps {
   categories: Category[];
@@ -143,7 +139,7 @@ export const CompanionForm: FC<CompanionFormProps> = ({
                   <FormControl>
                     <Input
                       disabled={isLoading}
-                      placeholder="Elon Musk"
+                      placeholder="Niels Bohr"
                       {...field}
                     />
                   </FormControl>
@@ -164,7 +160,7 @@ export const CompanionForm: FC<CompanionFormProps> = ({
                   <FormControl>
                     <Input
                       disabled={isLoading}
-                      placeholder="CEO and founder of Tesla"
+                      placeholder="Danish scientist and Nobel Prize winner."
                       {...field}
                     />
                   </FormControl>
@@ -191,7 +187,7 @@ export const CompanionForm: FC<CompanionFormProps> = ({
                       <SelectTrigger className="bg-background">
                         <SelectValue
                           defaultValue={field.value}
-                          placeholder="Select a vategory"
+                          placeholder="Select a Category"
                         ></SelectValue>
                       </SelectTrigger>
                     </FormControl>
@@ -253,7 +249,9 @@ export const CompanionForm: FC<CompanionFormProps> = ({
                   />
                 </FormControl>
                 <FormDescription>
-                  {"Describe your companion's backstory"}
+                  {
+                    "Give an example discussion between a person and your persona"
+                  }
                 </FormDescription>
                 <FormMessage />
               </FormItem>
