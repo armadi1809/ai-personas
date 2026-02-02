@@ -3,7 +3,7 @@
 import BotAvatar from "@/components/bot-avatar";
 import { Button } from "@/components/ui/button";
 import { Companion } from "@prisma/client";
-import { ChevronLeft, MessageSquare } from "lucide-react";
+import { ChevronLeft } from "lucide-react";
 import { useRouter } from "next/navigation";
 import React from "react";
 
@@ -23,10 +23,6 @@ export default function ChatHeader({ companion }: ChatHeaderProps) {
         <div className="flex-col gap-1">
           <div className="flex gap-1 items-center">
             <p className="font-bold">{companion.name}</p>
-            <div className="flex items-center text-xs text-muted-foreground">
-              <MessageSquare className="w-4" />
-              {companion._count.messages}
-            </div>
           </div>
           <p className="text-muted-foreground text-xs">
             created by {companion.userName}

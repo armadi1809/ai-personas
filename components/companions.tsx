@@ -3,7 +3,6 @@ import Image from "next/image";
 import { FC } from "react";
 import { Card, CardFooter, CardHeader } from "./ui/card";
 import Link from "next/link";
-import { MessageSquare } from "lucide-react";
 
 interface CompanionsProps {
   data: (Companion & {
@@ -49,10 +48,6 @@ const Companions: FC<CompanionsProps> = ({ data }) => {
             </CardHeader>
             <CardFooter className="flex items-center justify-between  text-xs text-muted-foreground">
               <p className="lowecase">@{companion.userName}</p>
-              <div className="flex items-center">
-                <MessageSquare className="w-3 h-3 mr-1"></MessageSquare>
-                {companion._count.messages}
-              </div>
             </CardFooter>
           </Link>
         </Card>
