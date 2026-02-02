@@ -19,7 +19,7 @@ export const Navbar = () => {
           <h1
             className={cn(
               "hidden md:block text-xl md:text-3xl font-bold text-primary",
-              font.className
+              font.className,
             )}
           >
             personas.ai
@@ -27,10 +27,6 @@ export const Navbar = () => {
         </Link>
       </div>
       <div className="flex items-center gap-x-3">
-        <Button size="sm" variant="premium">
-          Upgrade
-          <Sparkles className="h-4 w-4 text-white fill-white"></Sparkles>
-        </Button>
         <ModeToggle />
         <UserButton />
       </div>
