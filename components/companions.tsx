@@ -3,6 +3,7 @@ import Image from "next/image";
 import { FC } from "react";
 import { Card, CardFooter, CardHeader } from "./ui/card";
 import Link from "next/link";
+import { ComponentDelete } from "./companionDelete";
 
 interface CompanionsProps {
   data: (Companion & {
@@ -46,10 +47,11 @@ const Companions: FC<CompanionsProps> = ({ data }) => {
               <p className="font-bold">{companion.name}</p>
               <p className="text-xs">{companion.description}</p>
             </CardHeader>
-            <CardFooter className="flex items-center justify-between  text-xs text-muted-foreground">
-              <p className="lowecase">@{companion.userName}</p>
-            </CardFooter>
           </Link>
+          <CardFooter className="flex items-center justify-between text-xs text-muted-foreground">
+            <p className="lowercase">@{companion.userName}</p>
+            <ComponentDelete companionId={companion.id} />
+          </CardFooter>
         </Card>
       ))}
     </div>
