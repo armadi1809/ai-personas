@@ -23,8 +23,6 @@ export async function POST(
   const { messages } = await request.json();
 
   const converted = convertMessages(messages);
-  console.log("Converted messages:", converted);
-
   const result = streamText({
     model: openai("gpt-3.5-turbo"),
     messages: converted,
