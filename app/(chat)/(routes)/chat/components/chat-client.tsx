@@ -17,15 +17,11 @@ interface ChatClientProps {
   };
 }
 
-// Convert your DB messages to UIMessage (adjust field names as needed)
 function prismaToUIMessage(m: PrismaMessage): UIMessage {
   return {
     id: m.id,
     role: m.role as UIMessage["role"],
-    // If your DB stores `content` as string:
     parts: [{ type: "text", text: (m as any).content ?? "" }],
-    // If your DB stores `createdAt`, you can keep it as extra metadata if needed:
-    // createdAt: m.createdAt.toISOString(),
   };
 }
 
@@ -62,7 +58,6 @@ ${companion.seed}:`,
 
   const isLoading = status === "streaming" || status === "submitted";
 
-  // input is now typically your state
   const [input, setInput] = useState("");
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
